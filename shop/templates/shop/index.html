@@ -7,20 +7,63 @@
 <body>
     <div>
         <h3>Список</h3>
-        <table>
-            <tr>
-                <td><p>Наименование</p></td>
-                <td><p>Цена</p></td>
-                <td></td>
-            </tr>
+        <div class="table">
+            <div class="row">
+                <div class="cell-name">Наименование</div>
+                <div class="cell-price">Цена</div>
+                <div class="cell-amount">В наличии</div>
+                <div class="cell-action"></div>
+            </div>
+            <!-- Добавление строчек товаров в таблицу -->
             {% for p in products %}
-                <tr>
-                    <td><p>{{ p.name }}</p></td>
-                    <td><p>{{ p.price }}</p></td>
-                    <td><p><a href="/buy/{{ p.id }}">Купить</a></p></td>
-                </tr>
+                <div class="row">
+                    <div class="cell-name">{{ p.name }}</div>
+                    <div class="cell-price">{{ p.price }}</div>
+                    <div class="cell-amount">{{ p.amount }}</div>
+                    <!-- Выбор текста по наличию товара в магазине -->
+                    <div class="cell-action">
+                        {% if p.amount > 0 %}
+                            <a href="/buy/{{ p.id }}">Купить</a>
+                        {% else %}
+                            Нет в наличии
+                        {% endif %}
+                    </div>
+                </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
 </body>
+<style>
+    .table {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width : 800px
+    }
+    .row {
+        display: flex;
+        gap: 12px
+    }
+    .cell-name {
+        flex: 1 0 40%
+    }
+    .cell-price {
+        flex: 1 0 150px
+    }
+    .cell-amount {
+        flex: 1 0 100px
+    }
+    .cell-action {
+        flex: 1 0 100%
+    }
+    .cell-action a {
+        text-decoration: none;
+        color: '#c9c9c9'
+    }
+    .cell-action a:hover {
+        color:#00A0C6; 
+        text-decoration:underline; 
+        cursor:pointer;  
+    }
+</style>
 </html>
